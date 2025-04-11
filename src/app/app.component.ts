@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GridComponent } from './grid.component';
-import { SudokuService } from './sudoku.service';
+import { SudokuService } from '../services/sudoku.service';
 
 @Component({
   selector: 'app-root',

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CellComponent } from './cell.component';
 import { NgFor } from '@angular/common';
-import { SudokuService } from './sudoku.service';
+import { SudokuService } from '../services/sudoku.service';
 
 @Component({
     selector: 'app-grid',
