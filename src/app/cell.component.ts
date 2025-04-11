@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-cell',
@@ -69,7 +69,21 @@ import { Component, Input } from '@angular/core';
 })
 export class CellComponent {
     @Input() value: number = 0;
-    @Input() readonly: boolean = false;
+    @Output() valueChange = new EventEmitter<number>(); 
+    @Input() 
+    set readonly(value: boolean) {
+        if(!this.initialized) {
+            this.isReadonly = value;
+        }
+    }
+
+    isReadonly: boolean = false;
+    initialized: boolean = false; // Flag to check if the component is initialized
+
+    ngOnInit() {
+        console.log('CellComponent initialized with value:', this.value); // Log the initial value for debugging
+        this.initialized = true; // Set the initialized flag to true
+    }
 
     onInputChange(event: Event): void {
         console.log('Is readonly:', this.readonly); // Log the input change event for debugging
@@ -81,6 +95,7 @@ export class CellComponent {
         let tempValue = parseInt(input.value, 10) || 0;
         //tempValue = Math.max(0, Math.min(tempValue, 9));
         input.value = tempValue.toString(); // Update the input value to the clamped value
+        this.valueChange.emit(tempValue); // Emit the new value to the parent component
         console.log(`Cell value changed to: ${this.value}`); // Log the change for debugging
     }
 }

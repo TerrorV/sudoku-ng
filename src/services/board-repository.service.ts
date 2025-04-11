@@ -1,7 +1,12 @@
-export class BoardRepositoryService{
+import { Injectable } from "@angular/core";
+
+@Injectable({
+    providedIn: 'root',
+})
+export class BoardRepositoryService {
     private board: number[][] = Array.from({ length: 9 }, (_, i) => Array.from({ length: 9 }, (_, j) => 0));
     private initialBoard: number[][] = Array.from({ length: 9 }, (_, i) => Array.from({ length: 9 }, (_, j) => 0));
-
+    private fixedCells: boolean[][] = Array.from({ length: 9 }, (_, i) => Array.from({ length: 9 }, (_, j) => false));
     constructor() {
         console.log("BoardRepositoryService initialized");
     }
@@ -12,7 +17,10 @@ export class BoardRepositoryService{
 
     setBoard(board: number[][]): void {
         this.board = board;
-        this.initialBoard = board.map(row => [...row]);
+        if (this.initialBoard.length === 0) {
+            this.initialBoard = board.map(row => [...row]);
+            this.fixedCells = board.map(row => row.map(cell => cell !== 0));
+        }
     }
 
     getInitialBoard(): number[][] {
@@ -22,5 +30,6 @@ export class BoardRepositoryService{
     clearBoard(): void {
         this.board = [];
         this.initialBoard = [];
+        this.fixedCells = [];
     }
 }

@@ -1,12 +1,13 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { GridComponent } from "./grid.component";
+import { NgFor } from "@angular/common";
 
 @Component({
     selector: "app-sudoku-grid",
-    imports: [GridComponent],
+    imports: [GridComponent, NgFor],
     template: `
         <div class="border-grid">
-            <app-grid *ngFor="let subgrid in board" [subgrid]="subgrid"></app-grid>
+            <app-grid *ngFor="let subgrid of board; let i = index" [subgrid]="board[i]" (subgridChange)="onSubgridChange(i,$event)"></app-grid>
         </div>
     `,
     styles: [
@@ -25,8 +26,20 @@ import { GridComponent } from "./grid.component";
 })
 export class SudokuGridComponent {
     @Input() board: number[][] = [];
+    @Output() boardChange: EventEmitter<number[][]> = new EventEmitter<number[][]>();
     
     constructor() {
+        console.log(this.board);
         console.log("SudokuGridComponent initialized");
+    }
+
+    getBoard(): number[][] {
+        return this.board;
+    }
+
+    onSubgridChange(index: number, subgrid: number[]): void {
+        this.board[index] = subgrid; // Update the board at the specified index
+        this.boardChange.emit(this.board); // Emit the updated board to notify the parent
+        console.log(`Board updated at index ${index}:`, this.board);
     }
 }

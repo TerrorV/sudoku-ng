@@ -1,6 +1,10 @@
+import { Injectable } from "@angular/core";
 import { BoardRepositoryService } from "./board-repository.service";
 import { SudokuService } from "./sudoku.service";
 
+@Injectable({
+    providedIn: 'root',
+})
 export class BoardService {
     private repository: BoardRepositoryService;
     private sudokuService: SudokuService;
@@ -22,6 +26,7 @@ export class BoardService {
     async initBoard(difficulty: 'easy' | 'medium' | 'hard' | 'random'): Promise<void> {
         this.repository.clearBoard();
         let board = await this.sudokuService.getBoard(difficulty);
+        this.repository.setBoard(board.board);
     }
 
     async validateBoard(): Promise<boolean> {
