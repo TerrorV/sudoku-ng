@@ -1,35 +1,28 @@
 import { Injectable } from "@angular/core";
+import { CellData } from "./cell-data";
 
 @Injectable({
     providedIn: 'root',
 })
 export class BoardRepositoryService {
-    private board: number[][] = Array.from({ length: 9 }, (_, i) => Array.from({ length: 9 }, (_, j) => 0));
-    private initialBoard: number[][] = Array.from({ length: 9 }, (_, i) => Array.from({ length: 9 }, (_, j) => 0));
-    private fixedCells: boolean[][] = Array.from({ length: 9 }, (_, i) => Array.from({ length: 9 }, (_, j) => false));
+    private board: CellData[][] = [];
     constructor() {
         console.log("BoardRepositoryService initialized");
     }
 
-    getBoard(): number[][] {
+    getBoard(): CellData[][] {
         return this.board;
     }
 
     setBoard(board: number[][]): void {
-        this.board = board;
-        if (this.initialBoard.length === 0) {
-            this.initialBoard = board.map(row => [...row]);
-            this.fixedCells = board.map(row => row.map(cell => cell !== 0));
-        }
+        this.board = board.map(row => row.map(cell => new CellData(cell, cell, cell !== 0)));
     }
 
-    getInitialBoard(): number[][] {
-        return this.initialBoard;
+    getInitialBoard(): CellData[][] {
+        return this.board;
     }
 
     clearBoard(): void {
         this.board = [];
-        this.initialBoard = [];
-        this.fixedCells = [];
     }
 }

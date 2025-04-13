@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BoardRepositoryService } from "./board-repository.service";
 import { SudokuService } from "./sudoku.service";
+import { CellData } from "./cell-data";
 
 @Injectable({
     providedIn: 'root',
@@ -15,7 +16,7 @@ export class BoardService {
         console.log("BoardService initialized");
     }
 
-    getBoard(): number[][] {
+    getBoard(): CellData[][] {
         return this.repository.getBoard();
     }
 
@@ -29,9 +30,9 @@ export class BoardService {
         this.repository.setBoard(board.board);
     }
 
-    async validateBoard(): Promise<boolean> {
+    async validateBoard(): Promise<any> {
         const board = this.repository.getBoard();
-        let result = await this.sudokuService.validateBoard(board)
-        return true; // Placeholder for actual validation result
+        let result = await this.sudokuService.validateBoard(board.map(row => row.map(cell => cell.currentValue)));
+        return result;
     }
 }

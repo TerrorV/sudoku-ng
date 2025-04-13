@@ -69,21 +69,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class CellComponent {
     @Input() value: number = 0;
+    @Input() readonly: boolean = false; // Input property to set the read-only state of the cell
     @Output() valueChange = new EventEmitter<number>(); 
-    @Input() 
-    set readonly(value: boolean) {
-        if(!this.initialized) {
-            this.isReadonly = value;
-        }
-    }
-
-    isReadonly: boolean = false;
-    initialized: boolean = false; // Flag to check if the component is initialized
-
-    ngOnInit() {
-        console.log('CellComponent initialized with value:', this.value); // Log the initial value for debugging
-        this.initialized = true; // Set the initialized flag to true
-    }
 
     onInputChange(event: Event): void {
         console.log('Is readonly:', this.readonly); // Log the input change event for debugging
