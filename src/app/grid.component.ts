@@ -17,12 +17,13 @@ import { CellData } from '../services/cell-data';
     `,
     styles: [`
         .grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            grid-template-rows: repeat(9, 1fr);
+            display: flex;
+            flex-direction: column; 
             gap: 1px;
             border: 5px solid #ccc;
             background-color: gray;
+            width: fit-content;
+            height: fit-content;
         }
 
         .row {
@@ -30,8 +31,20 @@ import { CellData } from '../services/cell-data';
         }
         
         .row:nth-child(3n) {
-                border-bottom: 3px solid #000; 
-            }
+            border-bottom: 3px solid #ccc; 
+        }
+        
+        .row:last-child {
+            border-bottom: 1px solid #ccc; 
+        }
+
+        app-cell:nth-child(3n) {
+            border-right: 3px solid #ccc; 
+        }
+
+        app-cell:last-child {
+            border-right: 1px solid #ccc; 
+        }
 /*
         .grid > app-cell:nth-child(n + 19):nth-child(-n + 27),
         .grid > app-cell:nth-child(n + 46):nth-child(-n + 54),
