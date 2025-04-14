@@ -5,18 +5,11 @@ import { Component, EventEmitter, Output } from "@angular/core";
     template: `
         <div class="controls">
             <div>
-                <label>
-                    <input type="radio" name="difficulty" value="Easy" (click)="onDifficultyChange('easy')" /> Easy
-                </label>
-                <label>
+                    <input type="radio" name="difficulty" value="Easy" checked (click)="onDifficultyChange('easy')" /> Easy
+
                     <input type="radio" name="difficulty" value="Medium" (click)="onDifficultyChange('medium')" /> Medium
-                </label>
-                <label>
                     <input type="radio" name="difficulty" value="Hard" (click)="onDifficultyChange('hard')" /> Hard
-                </label>
-                <label>
                     <input type="radio" name="difficulty" value="Random" (click)="onDifficultyChange('random')" /> Random
-                </label>
             </div>
 
             <button (click)="onSolveClick()">Solve</button>

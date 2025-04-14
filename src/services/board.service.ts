@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BoardRepositoryService } from "./board-repository.service";
 import { SudokuService } from "./sudoku.service";
 import { CellData } from "./cell-data";
+import { Solution } from "./solution";
 
 @Injectable({
     providedIn: 'root',
@@ -37,11 +38,11 @@ export class BoardService {
         return result;
     }
 
-    async solveBoard(): Promise<any> {
+    async solveBoard(): Promise<Solution> {
         const board = this.repository.getBoard();
         let result = await this.sudokuService.solveBoard(board.map(row => row.map(cell => cell.currentValue)));
         console.log("Solving board:", board);
         this.repository.setBoard(result.solution);
-        return this.repository.getBoard();
+        return new Solution( this.repository.getBoard(),result.status, result.difficulty);
     }
 }
