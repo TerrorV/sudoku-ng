@@ -16,7 +16,7 @@ Add docker support
 
 ## TODO 3
 
-Finalize the environment.custom.ts process to inject the sudoku service via command line on build
+Finalize the environment.custom.ts process to inject the sudoku service URL via command line on build
 
 ## Development server
 
