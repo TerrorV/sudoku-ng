@@ -32,7 +32,16 @@ export class BoardService {
 
     async validateBoard(): Promise<any> {
         const board = this.repository.getBoard();
+        console.log("Validating board:", board);
         let result = await this.sudokuService.validateBoard(board.map(row => row.map(cell => cell.currentValue)));
         return result;
+    }
+
+    async solveBoard(): Promise<any> {
+        const board = this.repository.getBoard();
+        let result = await this.sudokuService.solveBoard(board.map(row => row.map(cell => cell.currentValue)));
+        console.log("Solving board:", board);
+        this.repository.setBoard(result.solution);
+        return this.repository.getBoard();
     }
 }
