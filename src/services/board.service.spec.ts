@@ -62,22 +62,33 @@ describe('BoardService', () => {
   it('should solve the board', async () => {
     const mockSolution = { solution: [[1, 2], [3, 4]], status: 'solved', difficulty: 'easy' };
     mockRepository.getBoard.and.returnValue([[{
-        currentValue: 0,
+        currentValue: 1,
         initialValue: 0,
         fixed: false
     }, {
-        currentValue: 0,
+        currentValue: 2,
+        initialValue: 0,
+        fixed: false
+    }],
+    [{
+        currentValue: 3,
+        initialValue: 0,
+        fixed: false
+    }, {
+        currentValue: 4,
         initialValue: 0,
         fixed: false
     }]]);
     mockSudokuService.solveBoard.and.returnValue(Promise.resolve(mockSolution));
 
     const result = await service.solveBoard();
-
+    console.log("result", result);
     expect(mockRepository.getBoard).toHaveBeenCalled();
-    expect(mockSudokuService.solveBoard).toHaveBeenCalledWith([[0, 0]]);
+    expect(mockSudokuService.solveBoard).toHaveBeenCalledWith([[1, 2],[3, 4]]);
     expect(mockRepository.setBoard).toHaveBeenCalledWith(mockSolution.solution);
     const cellDataSolution = mockSolution.solution.map(row => row.map(value => ({ currentValue: value, initialValue: 0, fixed: false })));
+    console.log("cellDataSolution", cellDataSolution);
+    console.log("mockSolution.status", mockSolution);
     expect(result).toEqual(new Solution(cellDataSolution, mockSolution.status, mockSolution.difficulty));
   });
 });

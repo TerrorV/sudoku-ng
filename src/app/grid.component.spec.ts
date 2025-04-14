@@ -9,8 +9,7 @@ describe('GridComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CellComponent],
-      declarations: [GridComponent],
+      imports: [CellComponent, GridComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(GridComponent);
@@ -18,14 +17,14 @@ describe('GridComponent', () => {
     component.board = [
       [{
           currentValue: 1, initialValue: 1,
-          fixed: false
+          fixed: true
       }, {
           currentValue: 2, initialValue: 0,
           fixed: false
       }],
       [{
           currentValue: 3, initialValue: 3,
-          fixed: false
+          fixed: true
       }, {
           currentValue: 4, initialValue: 0,
           fixed: false

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { environment }  from '../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SudokuService {
-    private baseUrl = 'https://sugoku.onrender.com';
+    private baseUrl = environment.baseUrl;
 
     constructor() {}
 
