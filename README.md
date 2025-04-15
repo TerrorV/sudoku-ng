@@ -18,6 +18,10 @@ Add docker support
 
 Finalize the environment.custom.ts process to inject the sudoku service URL via command line on build
 
+## TODO 4
+
+Loading screen for when the service is loading
+
 ## Development server
 
 To start a local development server, run:
